@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Tamaño</th>
+                <th>Imagen</th>
+                <th>Destacado</th>
+                <th>Grupo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="produktua : ${productos}">
+                <td th:text="${produktua.id}"></td>
+                <td th:text="${produktua.izena}"></td>
+                <td th:text="${produktua.deskribapena}"></td>
+                <td th:text="${produktua.prezioa}"></td>
+                <td th:text="${produktua.stock}"></td>
+                <td th:text="${produktua.tamaina}"></td>
+                <td>
+                    <img th:src="${produktua.irudiaUrl}" alt="Imagen del producto" width="100">
+                </td>
+                <td th:text="${produktua.nabarmendu ? 'Sí' : 'No'}"></td>
+                <td th:text="${produktua.taldea.izena}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

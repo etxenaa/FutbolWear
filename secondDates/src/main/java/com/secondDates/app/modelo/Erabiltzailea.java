@@ -42,6 +42,7 @@ public class Erabiltzailea {
 	@ManyToMany
 	@JoinTable(name = "usuario_producto", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
 	private Set<Produktua> produktuak;
-
+	
+	public Erabiltzailea() {}
 	
 }

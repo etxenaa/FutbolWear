@@ -11,7 +11,7 @@ public class Helbidea {
 
 	private String kalea;  // Calle
 	private String postaKodea;  // Código postal
-	private String hiriak;  // Ciudad
+	private String hiria;  // Ciudad
 	private String herrialdea;  // País
 
 	
