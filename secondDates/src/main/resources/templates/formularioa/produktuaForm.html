@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/produktuaForm.css}">
+	<title>Agregar Producto</title>
+	
+</head>
+
+<body>
+	<h1>Agregar Producto</h1>
+
+	<form th:action="@{/produktua/gehitu}" th:object="${produktua}" method="post">
+		<!-- Nombre -->
+		<label for="izena">Nombre:</label>
+		<input type="text" id="izena" th:field="*{izena}" required="required" />
+		<br><br>
+
+		<!-- Descripción -->
+		<label for="deskribapena">Descripción:</label>
+		<input type="text" id="deskribapena" th:field="*{deskribapena}" />
+		<br><br>
+
+		<!-- Precio -->
+		<label for="prezioa">Precio:</label>
+		<input type="number" id="prezioa" th:field="*{prezioa}" step="0.01" required="required" />
+		<br><br>
+
+		<!-- Stock -->
+		<label for="stock">Stock:</label>
+		<input type="number" id="stock" th:field="*{stock}" required="required" />
+		<br><br>
+
+		<!-- Tamaño -->
+		<label for="tamaina">Tamaño:</label>
+		<input type="text" id="tamaina" th:field="*{tamaina}" />
+		<br><br>
+
+		<!-- Imagen URL -->
+		<label for="irudiaUrl">URL de la Imagen:</label>
+		<input type="text" id="irudiaUrl" th:field="*{irudiaUrl}" />
+		<br><br>
+
+		<!-- Taldea (Categoría) -->
+		<label for="taldea">Categoría:</label>
+		<select id="taldea" th:field="*{taldea}" required="required" onchange="toggleTaldeaForm()">
+			<option th:each="talde : ${taldeak}" th:value="${talde.id}" th:text="${talde.izena}"></option>
+		</select>
+		<br><br>
+
+		<br><br>
+		<button type="submit">Gehitu produktua</button>
+		<a th:href="@{/produktua/produktuak}">Itzuli</a>
+	</form>
+</body>
+
+</html>

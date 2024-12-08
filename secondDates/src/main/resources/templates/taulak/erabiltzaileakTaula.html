@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuarios</title>
-    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
 </head>
 <body>
     <h1>Lista de Usuarios</h1>
@@ -29,8 +29,8 @@
                 <td th:text="${usuario.email}"></td>
                 <td th:text="${usuario.telefonoa}"></td>
                 <td th:text="${usuario.rola}"></td>
-                <td th:text="${usuario.helbidea.kalea + ', ' + usuario.helbidea.hiria + ', ' + usuario.helbidea.postaKodea + ', ' + usuario.helbidea.herrialdea}"></td>
-                <td>
+				<td th:text="|${usuario.helbidea.kalea}, ${usuario.helbidea.hiria}, ${usuario.helbidea.postaKodea}, ${usuario.helbidea.herrialdea}|"></td>
+				<td>
 					<ul>
 						<li th:each="produktua : ${usuario.produktuak}" 
 						    th:text="${produktua.izena} + ', ' + ${produktua.prezioa}"> 
@@ -39,7 +39,8 @@
 					</ul>
 
                 </td>
-				<td><a href="/produktuak">Produktua erosi</a></td>
+				<td><a href="/produktua/produktuak">Produktua erosi</a></td>
+				<td><a href="/produktua/cesta">Ikusi cesta</a></td>
             </tr>
         </tbody>
 		

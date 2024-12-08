@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Productos</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
 </head>
 <body>
     <h1>Lista de Productos</h1>
@@ -12,20 +12,17 @@
     <table border="1">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Tamaño</th>
-                <th>Imagen</th>
-                <th>Destacado</th>
-                <th>Grupo</th>
+                <th>Produktua</th>
+                <th>Deskripzioa</th>
+                <th>Prezioa</th>
+                <th>Stock-a</th>
+                <th>Talla</th>
+                <th>Argazkia</th>
+                <th>Taldea</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="produktua : ${productos}">
-                <td th:text="${produktua.id}"></td>
+            <tr th:each="produktua : ${produktuak}">
                 <td th:text="${produktua.izena}"></td>
                 <td th:text="${produktua.deskribapena}"></td>
                 <td th:text="${produktua.prezioa}"></td>
@@ -34,10 +31,14 @@
                 <td>
                     <img th:src="${produktua.irudiaUrl}" alt="Imagen del producto" width="100">
                 </td>
-                <td th:text="${produktua.nabarmendu ? 'Sí' : 'No'}"></td>
                 <td th:text="${produktua.taldea.izena}"></td>
+				<td><a th:href="@{/produktua/editatu/{id}(id=${produktua.id})}">Editatu</a></td>
+				<td><a th:href="@{/produktua/ezabatu/{id}(id=${produktua.id})}">Ezabatu</a></td>
             </tr>
         </tbody>
+		<a th:href="@{/produktua/gehitu}">Produktua gehitu</a>
+		
+
     </table>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.secondDates.app.modelo;
+	package com.secondDates.app.modelo;
 
 import java.util.Set;
 
@@ -35,7 +35,7 @@ public class Erabiltzailea {
 	private Helbidea helbidea;  // Dirección
 
 	// Relazio 1:1 Cesta-rekin
-	@OneToOne(mappedBy = "Erabiltzailea", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "erabiltzailea", cascade = CascadeType.ALL)
 	private Cesta cesta;
 
 	// Relazio N:M Producto-rekin (Cesta bidez)
@@ -43,6 +43,5 @@ public class Erabiltzailea {
 	@JoinTable(name = "usuario_producto", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
 	private Set<Produktua> produktuak;
 	
-	public Erabiltzailea() {}
 	
 }

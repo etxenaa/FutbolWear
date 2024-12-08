@@ -36,8 +36,6 @@ public class Produktua {
     // Nuevo atributo: irudiaUrl (URL de la imagen del producto)
     private String irudiaUrl;  // URL de la imagen
 
-    // Atributo adicional, por ejemplo, si es un producto destacado o tiene algún tipo de clasificación
-    private Boolean nabarmendu;  // Producto destacado (true o false)
     
     // Otros atributos según sea necesario
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lista de Cestas</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
+</head>
+
+<body>
+	<h1>Lista de Cestas</h1>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Erabiltzailea</th>
+				<th>Helbidea</th>
+				<th>Produktuak</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cesta : ${cestas}">
+				<td th:text="${cesta.id}"></td>
+				<td th:text="${cesta.erabiltzailea.izena}"></td>
+				<td th:text="${cesta.helbidea}"></td>
+				<td>
+					<ul>
+						<li th:each="producto : ${cesta.produktuak}"
+							th:text="${producto.izena} + ' - ' + ${producto.prezioa}"></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #34495e; /* Fondo claro */
+    color: #333; /* Texto oscuro para contraste */
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezados */
+h1 {
+    text-align: center;
+    color: #1f3a63; /* Azul marino */
+    margin-top: 30px;
+}
+
+/* Formulario */
+form {
+    background-color: #fff; /* Fondo blanco para el formulario */
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Labels y campos de entrada */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #34495e; /* Gris oscuro */
+}
+
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; /* Borde suave */
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px; /* Espaciado entre campos */
+}
+
+/* Botón */
+button[type="submit"] {
+    background-color: #f39c12; /* Naranja */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #e67e22; /* Sombra más oscura al pasar el ratón */
+}
+
+/* Estilo para select (categorías) */
+select {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Espaciado y márgenes generales */
+br {
+    line-height: 2;
+}
+
+a {
+    background-color: #f39c12; /* Naranja */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    width: auto;
+    margin-top: 10px;
+	width: 93.5%;
+}
+
+a:hover {
+    background-color: #e67e22; /* Sombra más oscura al pasar el ratón */
+}

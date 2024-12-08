@@ -22,10 +22,9 @@ public class Cesta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// 1:1 erlazioa Usuario-rekin
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
-	private Erabiltzailea Erabiltzailea;
+	private Erabiltzailea erabiltzailea;
 
 	private String helbidea;
 
