@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Productos</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lista de Productos</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
 </head>
+
 <body>
-    <h1>Lista de Productos</h1>
-    
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Produktua</th>
-                <th>Deskripzioa</th>
-                <th>Prezioa</th>
-                <th>Stock-a</th>
-                <th>Talla</th>
-                <th>Argazkia</th>
-                <th>Taldea</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="produktua : ${produktuak}">
-                <td th:text="${produktua.izena}"></td>
-                <td th:text="${produktua.deskribapena}"></td>
-                <td th:text="${produktua.prezioa}"></td>
-                <td th:text="${produktua.stock}"></td>
-                <td th:text="${produktua.tamaina}"></td>
-                <td>
-                    <img th:src="${produktua.irudiaUrl}" alt="Imagen del producto" width="100">
-                </td>
-                <td th:text="${produktua.taldea.izena}"></td>
+	<h1>Lista de Productos</h1>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Produktua</th>
+				<th>Deskripzioa</th>
+				<th>Prezioa</th>
+				<th>Stock-a</th>
+				<th>Talla</th>
+				<th>Argazkia</th>
+				<th>Taldea</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="produktua : ${produktuak}">
+				<td th:text="${produktua.izena}"></td>
+				<td th:text="${produktua.deskribapena}"></td>
+				<td th:text="${produktua.prezioa}"></td>
+				<td th:text="${produktua.stock}"></td>
+				<td th:text="${produktua.tamaina}"></td>
+				<td>
+					<img th:src="@{/uploads/{filename}(filename=${produktua.irudiaUrl})}" alt="Imagen del producto" width="100">
+
+
+				</td>
+				<td th:text="${produktua.taldea.izena}"></td>
 				<td><a th:href="@{/produktua/editatu/{id}(id=${produktua.id})}">Editatu</a></td>
 				<td><a th:href="@{/produktua/ezabatu/{id}(id=${produktua.id})}">Ezabatu</a></td>
-            </tr>
-        </tbody>
+			</tr>
+		</tbody>
 		<a th:href="@{/produktua/gehitu}">Produktua gehitu</a>
-		
 
-    </table>
+
+	</table>
 </body>
+
 </html>

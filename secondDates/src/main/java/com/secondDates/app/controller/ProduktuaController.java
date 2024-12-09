@@ -1,7 +1,12 @@
 package com.secondDates.app.controller;
 
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.secondDates.app.modelo.Cesta;
 import com.secondDates.app.modelo.Produktua;
@@ -45,12 +52,37 @@ public class ProduktuaController {
 	}
 
 	@PostMapping("/gehitu")
-	public String produktuaGehitu(@ModelAttribute("produktua") Produktua producto) {
+	public String produktuaGehitu(@ModelAttribute("produktua") Produktua producto,
+	        @RequestParam("file") MultipartFile irudia, Model model) {
 
-		prodRepo.save(producto);
+	    if (!irudia.isEmpty()) {
+	        Path uploadDir = Paths.get("src/main/resources/static/uploads");
+	        if (!Files.exists(uploadDir)) {
+	            try {
+	                Files.createDirectories(uploadDir); // Crear el directorio si no existe
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
 
-		return "redirect:/produktua/produktuak";
+	        // Obtener el nombre original de la imagen
+	        String fileName = irudia.getOriginalFilename();
+	        Path filePath = uploadDir.resolve(fileName);
+
+	        try {
+	            // Guardar la imagen en el servidor
+	            irudia.transferTo(filePath.toFile());
+	            // Guardar solo el nombre de archivo en la base de datos
+	            producto.setIrudiaUrl(fileName);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    prodRepo.save(producto);
+	    return "redirect:/produktua/produktua";
 	}
+
 
 	@PostMapping("/taldea/gehitu")
 	public String taldeaGehitu(@ModelAttribute("taldea") Taldea taldea) {
@@ -68,7 +100,7 @@ public class ProduktuaController {
 			model.addAttribute("produktua", prod.get());
 			model.addAttribute("taldeak", taldeak);
 		} else {
-			return "error/notFound"; 
+			return "error/notFound";
 		}
 		return "formularioa/aldatuProd";
 	}

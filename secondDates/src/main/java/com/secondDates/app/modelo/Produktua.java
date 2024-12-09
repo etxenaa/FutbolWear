@@ -2,6 +2,7 @@ package com.secondDates.app.modelo;
 
 import java.math.BigDecimal;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,24 +20,19 @@ public class Produktua {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String izena;  // Nombre
-    private String deskribapena;  // Descripción
-    private BigDecimal prezioa;  // Precio
+    
+    private String izena; 
+    private String deskribapena;  
+    private BigDecimal prezioa;  
     private Integer stock;
 
-    // Relazio N:1 Talde-rekin (produktu bat talde bati dagokio)
     @ManyToOne
     @JoinColumn(name = "taldea_id")
     private Taldea taldea;
 
-    // Nuevo atributo: tamaina (por ejemplo, puede ser una cadena de texto o un valor enum)
-    private String tamaina;  // Tamaño del producto
-
-    // Nuevo atributo: irudiaUrl (URL de la imagen del producto)
-    private String irudiaUrl;  // URL de la imagen
-
+    private String tamaina;  
     
-    // Otros atributos según sea necesario
+    private String irudiaUrl;
+
 }
 

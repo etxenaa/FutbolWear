@@ -57,10 +57,10 @@ public class LoginController {
 
 	    if (emailAurkituta && pasahitzaAurkituta) {
 	        System.out.println("bai");
-	        return "redirect:/erabiltzaileak/ikusi";  // Redirige si los datos son correctos
+	        return "redirect:/erabiltzaileak/ikusi";  
 	    } else {
-	        System.out.println("ez"); // Añade el mensaje de error al modelo
-	        return "redirect:/login/login";  // Vuelve a mostrar el formulario de login con el error
+	        System.out.println("ez"); 
+	        return "redirect:/login/login";  
 	    }
 	}
 }
