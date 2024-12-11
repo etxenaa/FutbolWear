@@ -10,27 +10,30 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    private final CustomUserDetailsService userDetailsService;
+	private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+	public SecurityConfig(CustomUserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-    @Bean
+	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/erabiltzaileak", "/produktua/**", "/cesta", "/css/**", "/inicio/**", "/erabiltzaileak/**").permitAll()
+                .requestMatchers("/erabiltzaileak/**").hasRole("ADMIN")
+                .requestMatchers("/produktua/**", "/cesta", "/css/**", "/home/**", "/perfil/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/loginOndo")
-                .defaultSuccessUrl("/loginOndo", true)
-                .failureUrl("/")
-                .permitAll()
-            )
+        	    .loginPage("/home")  // Página de login personalizada
+        	    .defaultSuccessUrl("/home/futbolWear", true)
+        	    .failureUrl("/home?error")  // Redirige al formulario de login con ?error
+        	    .permitAll()
+        	)
+
+
             .logout(logout -> logout
-                .logoutSuccessUrl("/loginOndo")
+                .logoutSuccessUrl("/home")
                 .permitAll()
             )
             .userDetailsService(userDetailsService); // Agrega el servicio de detalles del usuario
@@ -38,10 +41,8 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
-
-

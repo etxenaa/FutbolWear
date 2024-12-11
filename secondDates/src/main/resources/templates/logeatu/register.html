@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<form class="registration-form" th:action="@{/login/erregistratu}" th:object="${erabiltzaileBerria}" method="POST">
+	<form class="login-form" th:action="@{/home/erregistratu}" th:object="${erabiltzaileBerria}" method="POST">
 		<h2>Erregistratzeko formularioa</h2>
 		<label for="izena">Izena</label>
 		<input type="text" id="izena" th:field="*{izena}" placeholder="Idatzi zure izena" required>
@@ -42,6 +42,7 @@
 			required>
 
 		<button type="submit">Erregistratu</button>
+		<a href="/home">Saioa hasi</a>
 	</form>
 </body>
 
