@@ -10,22 +10,30 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    private final CustomUserDetailsService userDetailsService;
+
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/erabiltzaileak", "/produktua/**", "/cesta", "/css/**", "/login/**", "/erabiltzaileak/**").permitAll() // Permitir acceso público a estas rutas
-                .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
+                .requestMatchers("/erabiltzaileak", "/produktua/**", "/cesta", "/css/**", "/inicio/**", "/erabiltzaileak/**").permitAll()
+                .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/login") // Página personalizada para login
-                .defaultSuccessUrl("/home", true) // Redirección tras login exitoso
+                .loginPage("/loginOndo")
+                .defaultSuccessUrl("/loginOndo", true)
+                .failureUrl("/")
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/login") // Redirección tras logout
+                .logoutSuccessUrl("/loginOndo")
                 .permitAll()
-            );
+            )
+            .userDetailsService(userDetailsService); // Agrega el servicio de detalles del usuario
 
         return http.build();
     }
@@ -35,3 +43,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
+

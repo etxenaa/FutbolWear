@@ -1,0 +1,24 @@
+<!-- navbar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+</head>
+<body>
+    <div th:fragment="navbar">
+        <nav>
+            <ul>
+                <li><a href="/loginOndo">Inicio</a></li>
+                <li><a href="/profile">Perfil</a></li>
+                <li><a href="/" th:if="${rola == 'ROLE_ADMIN'}">Ver productos</a></li>
+                <li><a href="/users" th:if="${rola == 'ROLE_ADMIN'}">Ver usuarios</a></li>
+                <li><a href="/carts" th:if="${rola == 'ROLE_ADMIN'}">Ver cestas</a></li>
+                <li><a href="/produktua/produktuak" th:if="${rola == 'ROLE_USER'}">Productos</a></li>
+                <li><a href="/cart" th:if="${rola == 'ROLE_USER'}">Mi cesta</a></li>
+                <li><a href="/">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+/* Estilos generales para el cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;  /* Fondo claro */
+    color: #333;
+}
+
+/* Encabezado con el nombre de la tienda */
+.store-header {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.store-header h1 {
+    font-size: 4rem;  /* Tamaño grande para el nombre de la tienda */
+    color: #f39c12;   /* Naranja */
+    margin-bottom: 20px;
+}
+
+/* Imagen de camisetas */
+.camisetas-image {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.camisetas-image img {
+    width: 50%;  /* Ajustar el tamaño de la imagen */
+    max-width: 1000px;  /* Limitar el tamaño máximo */
+    border-radius: 10px;  /* Bordes redondeados */
+}
+
+/* Estilo del pie de página */
+footer {
+    background-color: #34495e;  /* Fondo oscuro */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    font-size: 1rem;
+    margin: 0;
+}
