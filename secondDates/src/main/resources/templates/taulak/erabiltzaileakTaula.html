@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuarios</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
 </head>
 <body>
+
+	<div th:replace="~{/fragments/navbar.html :: navbar}"></div>
     <h1>Lista de Usuarios</h1>
     
     <table border="1">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Teléfono</th>
@@ -24,7 +26,6 @@
         <tbody>
             <!-- Iteramos sobre los usuarios que hemos pasado al modelo -->
             <tr th:each="usuario : ${usuarios}">
-                <td th:text="${usuario.id}"></td>
                 <td th:text="${usuario.izena}"></td>
                 <td th:text="${usuario.email}"></td>
                 <td th:text="${usuario.telefonoa}"></td>
@@ -39,7 +40,6 @@
 					</ul>
 
                 </td>
-				<td><a href="/produktua/produktuak">Produktua erosi</a></td>
 				<td><a href="/produktua/cesta">Ikusi cesta</a></td>
             </tr>
         </tbody>

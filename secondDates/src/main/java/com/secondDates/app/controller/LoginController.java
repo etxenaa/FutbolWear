@@ -1,5 +1,7 @@
 package com.secondDates.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,41 +20,43 @@ import com.secondDates.app.repository.ErabiltzaileaRepository;
 @RequestMapping("/home")
 public class LoginController {
 
-    @Autowired
-    private ErabiltzaileaRepository erabRepo;
+	@Autowired
+	private ErabiltzaileaRepository erabRepo;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    @GetMapping("")
-    public String login() {
-        return "logeatu/logina";
-    }
+	@GetMapping("")
+	public String login() {
+		return "logeatu/logina";
+	}
 
-    @GetMapping("/futbolWear")
-    public String index(Model model) {
-    	UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String rol = userDetails.getAuthorities().stream()
-                .findFirst()
-                .map(auth -> auth.getAuthority())
-                .orElse(null);
-        model.addAttribute("rola", rol);  // Pasar el rol al modelo
-        return "home";
-    }
+	@GetMapping("/futbolWear")
+	public String index(Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String rol = userDetails.getAuthorities().stream().findFirst().map(auth -> auth.getAuthority()).orElse(null);
+		model.addAttribute("rola", rol); // Pasar el rol al modelo
+		return "home";
+	}
 
-    @GetMapping("/erregistratu")
-    public String registratu(Model model) {
-        model.addAttribute("erabiltzaileBerria", new Erabiltzailea());
-        return "logeatu/register";
-    }
+	@GetMapping("/erregistratu")
+	public String registratu(Model model) {
+		model.addAttribute("erabiltzaileBerria", new Erabiltzailea());
+		return "logeatu/register";
+	}
 
-    @PostMapping("/erregistratu")
-    public String erregistratu(@ModelAttribute("erabiltzaileBerria") Erabiltzailea erab) {
-        erab.setPasahitza(passwordEncoder.encode(erab.getPasahitza()));
-        erab.setRola("User");
-        erabRepo.save(erab);
-        return "redirect:/home";
-    }
-    
-    
+	@PostMapping("/erregistratu")
+	public String erregistratu(@ModelAttribute("erabiltzaileBerria") Erabiltzailea erab, Model model) {
+		if (erabRepo.findByEmail(erab.getEmail()).isPresent()) {
+			String errorMessage = "Korreo hori existitzen da.";
+			model.addAttribute("error", errorMessage);
+			return "logeatu/register";
+		}
+
+		erab.setPasahitza(passwordEncoder.encode(erab.getPasahitza()));
+		erab.setRola("User");
+		erabRepo.save(erab);
+		return "redirect:/home";
+	}
+
 }

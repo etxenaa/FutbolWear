@@ -24,7 +24,8 @@
 			required>
 
 		<label for="street">Kalea</label>
-		<input type="text" id="street" th:field="*{helbidea.kalea}" name="street" placeholder="Idatzi zure kalea" required>
+		<input type="text" id="street" th:field="*{helbidea.kalea}" name="street" placeholder="Idatzi zure kalea"
+			required>
 
 		<label for="postal-code">Posta kodea</label>
 		<input type="text" id="postal-code" th:field="*{helbidea.postaKodea}" name="postal_code"
@@ -34,13 +35,15 @@
 		<input type="text" id="city" th:field="*{helbidea.hiria}" name="city" placeholder="Idatzi zure hiria" required>
 
 		<label for="country">Herrialdea</label>
-		<input type="text" id="country" th:field="*{helbidea.herrialdea}" name="country" placeholder="Idatzi zure herrialdea"
-			required>
+		<input type="text" id="country" th:field="*{helbidea.herrialdea}" name="country"
+			placeholder="Idatzi zure herrialdea" required>
 
 		<label for="phone">Telefono zbk.</label>
 		<input type="tel" id="phone" th:field="*{telefonoa}" name="phone" placeholder="Idatzi zure telefono zbk."
 			required>
-
+		<div th:if="${error}" class="alert alert-danger">
+			<p th:text="${error}"></p>
+		</div>
 		<button type="submit">Erregistratu</button>
 		<a href="/home">Saioa hasi</a>
 	</form>

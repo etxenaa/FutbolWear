@@ -1,6 +1,5 @@
 package com.secondDates.app.controller;
 
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.secondDates.app.modelo.Cesta;
+import com.secondDates.app.modelo.Erabiltzailea;
 import com.secondDates.app.modelo.Produktua;
 import com.secondDates.app.modelo.Taldea;
 import com.secondDates.app.repository.CestaRepository;
+import com.secondDates.app.repository.ErabiltzaileaRepository;
 import com.secondDates.app.repository.ProduktuaRepository;
 import com.secondDates.app.repository.TaldeaRepository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Controller
 @RequestMapping("/produktua")
@@ -35,9 +42,23 @@ public class ProduktuaController {
 	private TaldeaRepository taldeaRepo;
 	@Autowired
 	private CestaRepository cestaRepository;
+	@Autowired
+	private ErabiltzaileaRepository erabRepository;
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@GetMapping("/produktuak")
 	public String ikusiProduktuak(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+
+		Erabiltzailea erabiltzailea = erabRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+		model.addAttribute("erabiltzailea", erabiltzailea);
+
+		String rol = auth.getAuthorities().stream().map(authority -> authority.getAuthority()).findFirst().orElse(null);
+		model.addAttribute("rola", rol);
 		Iterable<Produktua> prod = prodRepo.findAll();
 		model.addAttribute("produktuak", prod);
 		return "taulak/produktuaTaula";
@@ -53,36 +74,30 @@ public class ProduktuaController {
 
 	@PostMapping("/gehitu")
 	public String produktuaGehitu(@ModelAttribute("produktua") Produktua producto,
-	        @RequestParam("file") MultipartFile irudia, Model model) {
+			@RequestParam("file") MultipartFile irudia, Model model) {
+		try {
 
-	    if (!irudia.isEmpty()) {
-	        Path uploadDir = Paths.get("src/main/resources/static/uploads");
-	        if (!Files.exists(uploadDir)) {
-	            try {
-	                Files.createDirectories(uploadDir); // Crear el directorio si no existe
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        }
+			if (!irudia.isEmpty()) {
+				Path uploadDir = Paths.get("src//main//resources//static/uploads");
+				String rutaAbsoluta = uploadDir.toFile().getAbsolutePath();
+				byte[] bytesImg = irudia.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + irudia.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+				producto.setIrudiaUrl(irudia.getOriginalFilename());
+			}
 
-	        // Obtener el nombre original de la imagen
-	        String fileName = irudia.getOriginalFilename();
-	        Path filePath = uploadDir.resolve(fileName);
+			prodRepo.save(producto);
 
-	        try {
-	            // Guardar la imagen en el servidor
-	            irudia.transferTo(filePath.toFile());
-	            // Guardar solo el nombre de archivo en la base de datos
-	            producto.setIrudiaUrl(fileName);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
+			return "redirect:/produktua/produktuak";
 
-	    prodRepo.save(producto);
-	    return "redirect:/produktua/produktua";
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+			return "error"; // Si ocurre un error, mostramos una página de error
+
+		}
 	}
-
 
 	@PostMapping("/taldea/gehitu")
 	public String taldeaGehitu(@ModelAttribute("taldea") Taldea taldea) {
@@ -118,17 +133,28 @@ public class ProduktuaController {
 	}
 
 	@PostMapping("/editatu/{id}")
-	public String aldatuProduktua(@ModelAttribute("produktua") Produktua producto) {
+	public String aldatuProduktua(@ModelAttribute("produktua") Produktua producto,
+			@RequestParam("file") MultipartFile irudia, Model model) {
+		try {
+			if (!irudia.isEmpty()) {
+				Path uploadDir = Paths.get("src/main/resources/static/uploads");
+				String rutaAbsoluta = uploadDir.toFile().getAbsolutePath();
+				byte[] bytesImg = irudia.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "/" + irudia.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+				producto.setIrudiaUrl(irudia.getOriginalFilename());
+			}
 
-		prodRepo.save(producto);
+			// Usar save() de JpaRepository, que maneja la transacción
+			prodRepo.save(producto);
 
-		return "redirect:/produktua/produktuak";
+			return "redirect:/produktua/produktuak"; // Redirigir después de guardar
+		} catch (IOException e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", e.getMessage());
+			return "error"; // Página de error
+		}
 	}
 
-	@GetMapping("/cesta")
-	public String ikusiCesta(Model model) {
-		Iterable<Cesta> cesta = cestaRepository.findAll();
-		model.addAttribute("cestas", cesta);
-		return "taulak/cestaTaula";
-	}
+	
 }

@@ -14,25 +14,25 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <div class="card-header bg-primary text-white text-center">
-						<h3 th:if="${erabiltzailea.rola == 'Admin'}">Perfil del Administrador</h3>
-						<h3 th:if="${erabiltzailea.rola == 'User'}">Perfil del Usuario</h3>
+						<h3 th:if="${erabiltzailea.rola == 'Admin'}">Adminsitrariaren perfila</h3>
+						<h3 th:if="${erabiltzailea.rola == 'User'}">Erabiltzailearen perfila</h3>
 
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="izena" class="form-label">Nombre:</label>
+                            <label for="izena" class="form-label">Izena:</label>
                             <p id="izena" th:text="${erabiltzailea.izena}"></p>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email:</label>
+                            <label for="email" class="form-label">Email-a:</label>
                             <p id="email" th:text="${erabiltzailea.email}"></p>
                         </div>
                         <div class="mb-3">
-                            <label for="telefonoa" class="form-label">Teléfono:</label>
+                            <label for="telefonoa" class="form-label">Telefonoa:</label>
                             <p id="telefonoa" th:text="${erabiltzailea.telefonoa}"></p>
                         </div>
                         <div class="mb-3">
-                            <label for="helbidea" class="form-label">Dirección:</label>
+                            <label for="helbidea" class="form-label">Helbidea:</label>
                             <p id="helbidea">
                                 <span th:text="${erabiltzailea.helbidea.kalea}"></span>,
                                 <span th:text="${erabiltzailea.helbidea.postaKodea}"></span>,

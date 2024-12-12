@@ -9,15 +9,14 @@
     <div th:fragment="navbar">
         <nav>
             <ul>
-                <li><a href="/home/futbolWear">Inicio</a></li>
-                <li><a href="/perfil/ver">Perfil</a></li>
-                <li><a href="/" th:if="${rola == 'ROLE_ADMIN'}">Ver productos</a></li>
-                <li><a href="/users" th:if="${rola == 'ROLE_ADMIN'}">Ver usuarios</a></li>
-                <li><a href="/carts" th:if="${rola == 'ROLE_ADMIN'}">Ver cestas</a></li>
+                <li><a href="/home/futbolWear">Hasiera</a></li>
+                <li><a href="/perfil/ver">Perfila</a></li>
+                <li><a href="/produktua/produktuak" th:if="${rola == 'ROLE_ADMIN'}">Produktuak ikusi</a></li>
+                <li><a href="/erabiltzaileak/ikusi" th:if="${rola == 'ROLE_ADMIN'}">Erabiltzaileak ikusi</a></li>
                 <li><a href="/produktua/produktuak" th:if="${rola == 'ROLE_USER'}">Productos</a></li>
-                <li><a href="/cart" th:if="${rola == 'ROLE_USER'}">Mi cesta</a></li>
+                <li><a href="/cart" th:if="${rola == 'ROLE_USER'}">Nire saskia</a></li>
 				<li>
-				    <a href="#" onclick="document.getElementById('logout-form').submit();">Cerrar sesión</a>
+				    <a href="#" onclick="document.getElementById('logout-form').submit();">Saioa itxi</a>
 				    <form id="logout-form" th:action="@{/logout}" method="post" style="display: none;"></form>
 				</li>
 

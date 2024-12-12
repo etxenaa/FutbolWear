@@ -56,10 +56,22 @@ public class ProfileController {
 	}
 
 	@PostMapping("/editar")
-	public String editarPerfil(@ModelAttribute("erabiltzailea") Erabiltzailea usuario, Model model) {
-		erabRepo.save(usuario);
+	public String editarPerfil(@ModelAttribute("erabiltzailea") Erabiltzailea usuarioFormulario) {
+		// Obtener el usuario actual desde la base de datos
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
 
-		return "redirect:/perfil/ver";
+		Erabiltzailea usuarioActual = erabRepo.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+		usuarioActual.setIzena(usuarioFormulario.getIzena());
+		usuarioActual.setEmail(usuarioFormulario.getEmail());
+		usuarioActual.setHelbidea(usuarioFormulario.getHelbidea());
+		usuarioActual.setTelefonoa(usuarioFormulario.getTelefonoa());
+		
+		erabRepo.save(usuarioActual);
+
+		return "redirect:/perfil/ver"; // Redirigir a la página de perfil
 	}
 
 }
