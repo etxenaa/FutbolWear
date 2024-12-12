@@ -11,10 +11,10 @@
             <ul>
                 <li><a href="/home/futbolWear">Hasiera</a></li>
                 <li><a href="/perfil/ver">Perfila</a></li>
-                <li><a href="/produktua/produktuak" th:if="${rola == 'ROLE_ADMIN'}">Produktuak ikusi</a></li>
+                <li><a href="/produktua/admin/produktuak" th:if="${rola == 'ROLE_ADMIN'}">Produktuak ikusi</a></li>
                 <li><a href="/erabiltzaileak/ikusi" th:if="${rola == 'ROLE_ADMIN'}">Erabiltzaileak ikusi</a></li>
-                <li><a href="/produktua/produktuak" th:if="${rola == 'ROLE_USER'}">Productos</a></li>
-                <li><a href="/cart" th:if="${rola == 'ROLE_USER'}">Nire saskia</a></li>
+                <li><a href="/produktua/produktuak" th:if="${rola == 'ROLE_USER'}">Produktuak</a></li>
+                <li><a href="/saskia/ikusi" th:if="${rola == 'ROLE_USER'}">Nire saskia</a></li>
 				<li>
 				    <a href="#" onclick="document.getElementById('logout-form').submit();">Saioa itxi</a>
 				    <form id="logout-form" th:action="@{/logout}" method="post" style="display: none;"></form>

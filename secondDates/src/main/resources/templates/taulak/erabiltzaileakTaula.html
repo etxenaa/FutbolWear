@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuarios</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lista de Usuarios</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
 </head>
+
 <body>
 
 	<div th:replace="~{/fragments/navbar.html :: navbar}"></div>
-    <h1>Lista de Usuarios</h1>
-    
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Rol</th>
-                <th>Dirección</th>
-                <th>Productos Asociados</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Iteramos sobre los usuarios que hemos pasado al modelo -->
-            <tr th:each="usuario : ${usuarios}">
-                <td th:text="${usuario.izena}"></td>
-                <td th:text="${usuario.email}"></td>
-                <td th:text="${usuario.telefonoa}"></td>
-                <td th:text="${usuario.rola}"></td>
-				<td th:text="|${usuario.helbidea.kalea}, ${usuario.helbidea.hiria}, ${usuario.helbidea.postaKodea}, ${usuario.helbidea.herrialdea}|"></td>
+	<h1>Lista de Usuarios</h1>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Email</th>
+				<th>Teléfono</th>
+				<th>Rol</th>
+				<th>Dirección</th>
+				<th>Productos Asociados</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- Iteramos sobre los usuarios que hemos pasado al modelo -->
+			<tr th:each="usuario : ${usuarios}" th:if="${usuario.rola == 'User'}">
+				<td th:text="${usuario.izena}"></td>
+				<td th:text="${usuario.email}"></td>
+				<td th:text="${usuario.telefonoa}"></td>
+				<td th:text="${usuario.rola}"></td>
+				<td
+					th:text="|${usuario.helbidea.kalea}, ${usuario.helbidea.hiria}, ${usuario.helbidea.postaKodea}, ${usuario.helbidea.herrialdea}|">
+				</td>
 				<td>
 					<ul>
-						<li th:each="produktua : ${usuario.produktuak}" 
-						    th:text="${produktua.izena} + ', ' + ${produktua.prezioa}"> 
+						<li th:each="produktua : ${usuario.produktuak}"
+							th:text="${produktua.izena} + ', ' + ${produktua.prezioa}">
 						</li>
 
 					</ul>
 
-                </td>
-				<td><a href="/produktua/cesta">Ikusi cesta</a></td>
-            </tr>
-        </tbody>
-		
-    </table>
+				</td>
+				<td><a th:href="@{/saskia/admin/ikusi/{email}(email=${usuario.email})}">Ikusi cesta</a></td>
+			</tr>
+		</tbody>
+
+	</table>
 </body>
+
 </html>

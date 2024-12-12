@@ -17,29 +17,28 @@ public class SecurityConfig {
 	}
 
 	@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/erabiltzaileak/**", "/uploads/**").hasRole("ADMIN")
-                .requestMatchers("/produktua/**", "/cesta", "/css/**", "/home/**", "/perfil/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-        	    .loginPage("/home")  // Página de login personalizada
-        	    .defaultSuccessUrl("/home/futbolWear", true)
-        	    .failureUrl("/home?error")  // Redirige al formulario de login con ?error
-        	    .permitAll()
-        	)
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests(
+				auth -> auth
+				.requestMatchers("/saskia/ikusi").hasRole("USER")
+				.requestMatchers("/erabiltzaileak/**", "/produktua/admin/**", "/saskia/admin/**").hasRole("ADMIN").
+				requestMatchers("/css/**", "/home/**", "/perfil/**", "/uploads/**").permitAll()
+						.anyRequest().authenticated())
+				.formLogin(form -> form.loginPage("/home") // Página de login personalizada
+						.defaultSuccessUrl("/home/futbolWear", true).failureUrl("/home?error") // Redirige al formulario
+																								// de login con ?error
+						.permitAll())
 
+				.logout(logout -> logout.logoutSuccessUrl("/home").permitAll()).userDetailsService(userDetailsService); // Agrega
+																														// el
+																														// servicio
+																														// de
+																														// detalles
+																														// del
+																														// usuario
 
-            .logout(logout -> logout
-                .logoutSuccessUrl("/home")
-                .permitAll()
-            )
-            .userDetailsService(userDetailsService); // Agrega el servicio de detalles del usuario
-
-        return http.build();
-    }
+		return http.build();
+	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {

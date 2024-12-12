@@ -1,6 +1,7 @@
 package com.secondDates.app.controller;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.nio.file.Files;
@@ -48,7 +49,7 @@ public class ProduktuaController {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@GetMapping("/produktuak")
+	@GetMapping("/admin/produktuak")
 	public String ikusiProduktuak(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
@@ -64,7 +65,7 @@ public class ProduktuaController {
 		return "taulak/produktuaTaula";
 	}
 
-	@GetMapping("/gehitu")
+	@GetMapping("/admin/gehitu")
 	public String showAddProductForm(Model model) {
 		model.addAttribute("produktua", new Produktua());
 		model.addAttribute("taldeak", taldeaRepo.findAll());
@@ -72,7 +73,7 @@ public class ProduktuaController {
 
 	}
 
-	@PostMapping("/gehitu")
+	@PostMapping("/admin/gehitu")
 	public String produktuaGehitu(@ModelAttribute("produktua") Produktua producto,
 			@RequestParam("file") MultipartFile irudia, Model model) {
 		try {
@@ -88,7 +89,7 @@ public class ProduktuaController {
 
 			prodRepo.save(producto);
 
-			return "redirect:/produktua/produktuak";
+			return "redirect:/produktua/admin/produktuak";
 
 		} catch (IOException e) {
 
@@ -99,15 +100,15 @@ public class ProduktuaController {
 		}
 	}
 
-	@PostMapping("/taldea/gehitu")
+	@PostMapping("/admin/taldea/gehitu")
 	public String taldeaGehitu(@ModelAttribute("taldea") Taldea taldea) {
 
 		taldeaRepo.save(taldea);
 
-		return "redirect:/produktua/gehitu";
+		return "redirect:/produktua/admin/gehitu";
 	}
 
-	@GetMapping("/editatu/{id}")
+	@GetMapping("/admin/editatu/{id}")
 	public String aldatuProd(@PathVariable Long id, Model model) {
 		Optional<Produktua> prod = prodRepo.findById(id);
 		List<Taldea> taldeak = taldeaRepo.findAll();
@@ -120,7 +121,7 @@ public class ProduktuaController {
 		return "formularioa/aldatuProd";
 	}
 
-	@GetMapping("/ezabatu/{id}")
+	@GetMapping("/admin/ezabatu/{id}")
 	public String eliminarProducto(@PathVariable Long id) {
 		if (prodRepo.existsById(id)) {
 			prodRepo.deleteById(id);
@@ -129,10 +130,10 @@ public class ProduktuaController {
 			System.out.println("Producto no encontrado con id: " + id);
 		}
 
-		return "redirect:/produktua/produktuak";
+		return "redirect:/produktua/admin/produktuak";
 	}
 
-	@PostMapping("/editatu/{id}")
+	@PostMapping("/admin/editatu/{id}")
 	public String aldatuProduktua(@ModelAttribute("produktua") Produktua producto,
 			@RequestParam("file") MultipartFile irudia, Model model) {
 		try {
@@ -148,7 +149,7 @@ public class ProduktuaController {
 			// Usar save() de JpaRepository, que maneja la transacción
 			prodRepo.save(producto);
 
-			return "redirect:/produktua/produktuak"; // Redirigir después de guardar
+			return "redirect:/produktua/admin/produktuak"; // Redirigir después de guardar
 		} catch (IOException e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", e.getMessage());
@@ -156,5 +157,44 @@ public class ProduktuaController {
 		}
 	}
 
-	
+	@GetMapping("/produktuak")
+	public String ikusiProduktuakUser(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+
+		Erabiltzailea erabiltzailea = erabRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+		model.addAttribute("erabiltzailea", erabiltzailea);
+
+		String rol = auth.getAuthorities().stream().map(authority -> authority.getAuthority()).findFirst().orElse(null);
+		model.addAttribute("rola", rol);
+		Iterable<Produktua> prod = prodRepo.findAll();
+		model.addAttribute("produktuak", prod);
+		return "taulak/produktuaTaula";
+	}
+
+	@GetMapping("/produktuak/erosi/{id}")
+	public String produktuaErosiUser(@PathVariable Long id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+
+		Erabiltzailea erabiltzailea = erabRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+		model.addAttribute("erabiltzailea", erabiltzailea);
+
+		Optional<Cesta> cestaGuztiak = cestaRepository.findByErabiltzailea(erabiltzailea);
+
+		Cesta cesta = cestaGuztiak.get();
+
+		if (cesta.getProduktuak() == null) {
+			cesta.setProduktuak(new HashSet<>());
+		}
+
+		Optional<Produktua> producto = prodRepo.findById(id);
+
+		cesta.getProduktuak().add(producto.get());
+		cestaRepository.save(cesta);
+
+		return "redirect:/produktua/produktuak";
+	}
 }

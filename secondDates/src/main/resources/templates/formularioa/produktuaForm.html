@@ -11,7 +11,7 @@
     <h1>Agregar Producto</h1>
 
     <div class="form-container">
-        <form th:action="@{/produktua/gehitu}" th:object="${produktua}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/produktua/admin/gehitu}" th:object="${produktua}" method="post" enctype="multipart/form-data">
             <label for="izena">Izena:</label>
             <input type="text" id="izena" th:field="*{izena}" required="required" />
             <br><br>
@@ -43,7 +43,7 @@
             <br><br>
 
             <button type="submit">Gehitu produktua</button>
-            <a class="btn" th:href="@{/produktua/produktuak}">Itzuli</a>
+            <a class="btn" th:href="@{/produktua/admin/produktuak}">Itzuli</a>
         </form>
     </div>
 

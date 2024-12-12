@@ -4,36 +4,43 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Lista de Cestas</title>
+	<title>Cesta del Usuario</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
 </head>
 
 <body>
-	<h1>Lista de Cestas</h1>
+	<!-- Navbar -->
+	<div th:replace="~{/fragments/navbar.html :: navbar}"></div>
+
+	<!-- Título -->
+	<h1 th:text="'Saskia ' + ${erabiltzailea.izena}"></h1>
 
 	<table border="1">
 		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Erabiltzailea</th>
+			<tr th:if="${cesta.produktuak.size() != 0}">
 				<th>Helbidea</th>
-				<th>Produktuak</th>
+				<th>Saskiko produktuak</th>
 			</tr>
+
 		</thead>
 		<tbody>
-			<tr th:each="cesta : ${cestas}">
-				<td th:text="${cesta.id}"></td>
-				<td th:text="${cesta.erabiltzailea.izena}"></td>
+			<tr th:if="${cesta.produktuak.size() != 0}">
 				<td th:text="${cesta.helbidea}"></td>
 				<td>
 					<ul>
 						<li th:each="producto : ${cesta.produktuak}"
-							th:text="${producto.izena} + ' - ' + ${producto.prezioa}"></li>
+							th:text="${producto.izena} + ' - ' + ${producto.prezioa} + '€'"></li>
 					</ul>
 				</td>
+				<td><a class="botoia" th:href="@{/saskia/ezabatu/{id}(id=${cesta.id})}">Saskia ezabatu</a></td>
 			</tr>
+			<div th:if="${cesta.produktuak.size() == 0}">
+				<p class="saskia-text">Saskia hutsik daukazu</p>
+			</div>
 		</tbody>
 	</table>
+
 </body>
 
 </html>

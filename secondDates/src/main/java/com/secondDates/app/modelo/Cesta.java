@@ -1,7 +1,9 @@
 package com.secondDates.app.modelo;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,9 +31,9 @@ public class Cesta {
 	private String helbidea;
 
 	// N:M erlazioa Producto-rekin (taula intermedia produktuak gordeko ditu cestas)
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "cesta_producto", joinColumns = @JoinColumn(name = "cesta_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
-	private Set<Produktua> produktuak;
+	private Set<Produktua> produktuak = new HashSet<>();
 
 	
 }

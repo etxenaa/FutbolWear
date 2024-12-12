@@ -1,6 +1,6 @@
 package com.secondDates.app.controller;
 
-import java.util.List;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.secondDates.app.modelo.Cesta;
 import com.secondDates.app.modelo.Erabiltzailea;
+import com.secondDates.app.repository.CestaRepository;
 import com.secondDates.app.repository.ErabiltzaileaRepository;
 
 @Controller
@@ -22,6 +24,8 @@ public class LoginController {
 
 	@Autowired
 	private ErabiltzaileaRepository erabRepo;
+	@Autowired
+	private CestaRepository cestaRepo;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -54,8 +58,17 @@ public class LoginController {
 		}
 
 		erab.setPasahitza(passwordEncoder.encode(erab.getPasahitza()));
+
 		erab.setRola("User");
+
 		erabRepo.save(erab);
+		Cesta cesta = new Cesta();
+		cesta.setHelbidea(erab.getHelbidea().getPostaKodea() + ", " + erab.getHelbidea().getKalea() + ", "
+				+ erab.getHelbidea().getHiria() + ", " + erab.getHelbidea().getHerrialdea());
+		cesta.setErabiltzailea(erab);
+		cesta.setProduktuak(new HashSet<>()); 
+		cestaRepo.save(cesta);
+
 		return "redirect:/home";
 	}
 

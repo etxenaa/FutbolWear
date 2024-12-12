@@ -9,4 +9,5 @@ import com.secondDates.app.modelo.Erabiltzailea;
 
 public interface CestaRepository extends JpaRepository<Cesta, Long> {
 	Optional<Cesta> findByErabiltzailea(Erabiltzailea erabiltzailea);
+
 }
