@@ -1,6 +1,7 @@
 package com.secondDates.app.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +65,11 @@ public class ProduktuaController {
 		if (prodRepo.findAll().isEmpty()) {
 			model.addAttribute("produktuak", null);
 		} else {
+			for (Produktua produktua : prod) {
+				if (produktua.getTamaina() != null) {
+					produktua.setTamainaList(Arrays.asList(produktua.getTamaina().split(",")));
+				}
+			}
 			model.addAttribute("produktuak", prod);
 		}
 
@@ -81,6 +87,7 @@ public class ProduktuaController {
 	@PostMapping("/admin/gehitu")
 	public String produktuaGehitu(@ModelAttribute("produktua") Produktua producto,
 			@RequestParam("file") MultipartFile irudia, Model model) {
+		boolean produktuaExistitzenDa = false;
 		try {
 
 			if (!irudia.isEmpty()) {
@@ -91,10 +98,20 @@ public class ProduktuaController {
 				Files.write(rutaCompleta, bytesImg);
 				producto.setIrudiaUrl(irudia.getOriginalFilename());
 			}
+			List<Produktua> produktuLista = prodRepo.findAll();
+			for (Produktua produktua : produktuLista) {
+				if (produktua.getIzena().equals(producto.getIzena())) {
+					model.addAttribute("error", producto.getIzena());
+					produktuaExistitzenDa = true;
+				}
+			}
 
-			prodRepo.save(producto);
-
-			return "redirect:/produktua/admin/produktuak";
+			if (!produktuaExistitzenDa) {
+				prodRepo.save(producto);
+				return "redirect:/produktua/admin/produktuak";
+			} else {
+				return "formularioa/produktuaForm.html";
+			}
 
 		} catch (IOException e) {
 
@@ -104,8 +121,6 @@ public class ProduktuaController {
 
 		}
 	}
-
-	
 
 	@GetMapping("/admin/ezabatu/{id}")
 	public String eliminarProducto(@PathVariable Long id) {
@@ -185,13 +200,19 @@ public class ProduktuaController {
 		if (prodRepo.findAll().isEmpty()) {
 			model.addAttribute("produktuak", null);
 		} else {
+			for (Produktua produktua : prod) {
+				if (produktua.getTamaina() != null) {
+					produktua.setTamainaList(Arrays.asList(produktua.getTamaina().split(",")));
+				}
+			}
 			model.addAttribute("produktuak", prod);
 		}
 		return "taulak/produktuaTaula";
 	}
 
 	@GetMapping("/produktuak/erosi/{id}")
-	public String produktuaErosiUser(@PathVariable Long id, Model model) {
+	public String produktuaErosiUser(@PathVariable Long id,
+			Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 
@@ -206,19 +227,56 @@ public class ProduktuaController {
 		if (cesta.getProduktuak() == null) {
 			cesta.setProduktuak(new HashSet<>());
 		}
-
 		Optional<Produktua> producto = prodRepo.findById(id);
-
+		System.out.println(producto.get().getTamaina());
 		cesta.getProduktuak().add(producto.get());
 		cestaRepository.save(cesta);
 		erabiltzailea.getProduktuak().add(producto.get());
 		erabRepository.save(erabiltzailea);
 		return "redirect:/produktua/produktuak";
 	}
-	
+
 	@GetMapping("/admin/taldea/gehitu")
-	public String taldeaGehitu(Model model){
+	public String taldeaGehitu(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+
+		Erabiltzailea erabiltzailea = erabRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+		model.addAttribute("erabiltzailea", erabiltzailea);
+
+		String rol = auth.getAuthorities().stream().map(authority -> authority.getAuthority()).findFirst().orElse(null);
+		model.addAttribute("rola", rol);
 		model.addAttribute("taldea", new Taldea());
 		return "formularioa/taldeaGehitu.html";
+	}
+
+	@PostMapping("/admin/taldea/gehitu")
+	public String taldeagehituta(@ModelAttribute("taldea") Taldea taldea, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+
+		Erabiltzailea erabiltzailea = erabRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+		model.addAttribute("erabiltzailea", erabiltzailea);
+
+		String rol = auth.getAuthorities().stream().map(authority -> authority.getAuthority()).findFirst().orElse(null);
+		model.addAttribute("rola", rol);
+		boolean taldeaExistitzenDa = false;
+		List<Taldea> taldeaLista = taldeaRepo.findAll();
+		for (Taldea taldea2 : taldeaLista) {
+			if (taldea2.getIzena().equals(taldea.getIzena())) {
+				model.addAttribute("error", taldea.getIzena());
+				taldeaExistitzenDa = true;
+			}
+		}
+
+		if (!taldeaExistitzenDa) {
+			taldeaRepo.save(taldea);
+			return "redirect:/produktua/admin/produktuak";
+		} else {
+			return "formularioa/taldeaGehitu.html";
+		}
+
 	}
 }

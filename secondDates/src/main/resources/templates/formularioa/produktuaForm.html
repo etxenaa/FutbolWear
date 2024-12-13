@@ -2,50 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/produktuaForm.css}">
-    <title>Agregar Producto</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/form.css}">
+	<title>Agregar Producto</title>
 </head>
 
 <body>
-    <h1>Agregar Producto</h1>
+	<h2>Produktua gehitu</h2>
 
-    <div class="form-container">
-        <form th:action="@{/produktua/admin/gehitu}" th:object="${produktua}" method="post" enctype="multipart/form-data">
-            <label for="izena">Izena:</label>
-            <input type="text" id="izena" th:field="*{izena}" required="required" />
-            <br><br>
+	<div class="form-container">
+		<form th:action="@{/produktua/admin/gehitu}" th:object="${produktua}" method="post"
+			enctype="multipart/form-data">
+			<label for="izena">Izena:</label>
+			<input type="text" id="izena" th:field="*{izena}" required="required" />
+			<br><br>
 
-            <label for="deskribapena">Deskribapena:</label>
-            <input type="text" id="deskribapena" th:field="*{deskribapena}" />
-            <br><br>
+			<label for="deskribapena">Deskribapena:</label>
+			<input type="text" id="deskribapena" th:field="*{deskribapena}" />
+			<br><br>
 
-            <label for="prezioa">Prezioa:</label>
-            <input type="number" id="prezioa" th:field="*{prezioa}" step="0.01" required="required" />
-            <br><br>
+			<label for="prezioa">Prezioa:</label>
+			<input type="number" id="prezioa" th:field="*{prezioa}" step="0.01" required="required" />
+			<br><br>
 
-            <label for="stock">Stock-a:</label>
-            <input type="number" id="stock" th:field="*{stock}" required="required" />
-            <br><br>
+			<label for="stock">Stock-a:</label>
+			<input type="number" id="stock" th:field="*{stock}" required="required" />
+			<br><br>
 
-            <label for="tamaina">Talla:</label>
-            <input type="text" id="tamaina" th:field="*{tamaina}" />
-            <br><br>
+			<label for="tamaina">Talla:</label>
+			<input type="text" id="tamaina" th:field="*{tamaina}" />
+			<br><br>
 
-            <label for="irudia">Argazkia aukeratu:</label>
-            <input type="file" id="irudia" name="file" accept="image/*" />
-            <br><br>
+			<label for="irudia">Argazkia aukeratu:</label>
+			<input type="file" id="irudia" name="file" accept="image/*" />
+			<br><br>
 
-            <label for="taldea">Taldea:</label>
-            <select id="taldea" th:field="*{taldea}" required="required" onchange="toggleTaldeaForm()">
-                <option th:each="talde : ${taldeak}" th:value="${talde.id}" th:text="${talde.izena}"></option>
-            </select>
-            <br><br>
-
-            <button class="btn-gehitu" type="submit">Gehitu produktua</button>
-            <a class="btn" th:href="@{/produktua/admin/produktuak}">Itzuli</a>
-        </form>
-    </div>
+			<label for="taldea">Taldea:</label>
+			<select id="taldea" th:field="*{taldea}" required="required" onchange="toggleTaldeaForm()">
+				<option th:each="talde : ${taldeak}" th:value="${talde.id}" th:text="${talde.izena}"></option>
+			</select>
+			<br><br>
+			<div th:if="${error}" class="alert alert-danger">
+				<h2 class="text-error" th:text="${error} + ' produktua existitzen da'">
+					</h2class>
+			</div>
+			<button class="btn-gehitu" type="submit">Gehitu produktua</button>
+			<a class="btn" th:href="@{/produktua/admin/produktuak}">Itzuli</a>
+		</form>
+	</div>
 
 </body>
 

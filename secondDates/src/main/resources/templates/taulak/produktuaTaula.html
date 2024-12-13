@@ -34,7 +34,13 @@
 				<td th:text="${produktua.deskribapena}"></td>
 				<td th:text="${produktua.prezioa}"></td>
 				<td th:text="${produktua.stock}"></td>
-				<td th:text="${produktua.tamaina}"></td>
+				<td>
+					<select>
+						<option th:each="tamaina : ${produktua.tamainaList}" th:value="${tamaina.trim()}"
+							th:text="${tamaina.trim()}"></option>
+					</select>
+				</td>
+
 				<td>
 					<img th:src="@{'/uploads/' + ${produktua.irudiaUrl}}" alt="Imagen del producto" width="100">
 				</td>

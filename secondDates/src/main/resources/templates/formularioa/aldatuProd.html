@@ -3,12 +3,12 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/produktuaForm.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/form.css}">
 	<title>Produktua Aldatu</title>
 </head>
 
 <body>
-	<h1>Produktua Aldatu</h1>
+	<h2>Produktua Aldatu</h2>
 
 	<div class="form-container">
 		<form th:action="@{/produktua/admin/editatu/{id}(id=${produktua.id})}" th:object="${produktua}" method="post" enctype="multipart/form-data">

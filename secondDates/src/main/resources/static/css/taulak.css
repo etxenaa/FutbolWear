@@ -1,69 +1,85 @@
 /* Aplicar un fondo oscuro gris y texto blanco para el cuerpo */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #34495e;  /* Gris oscuro */
-    color: white;
-    margin: 0;
+	font-family: Arial, sans-serif;
+	background-color: #34495e;
+	/* Gris oscuro */
+	color: white;
+	margin: 0;
 }
 
 /* Títulos de la página */
 h1 {
-    color: #f39c12;  /* Naranja */
-    text-align: center;
-    font-size: 36px;
-}
-/* Estilos para la tabla */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+	color: #f39c12;
+	/* Naranja */
+	text-align: center;
+	font-size: 36px;
 }
 
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border: 1px solid #1f3a63;
+/* Estilos para la tabla */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+th,
+td {
+	padding: 12px 15px;
+	text-align: left;
+	border: 1px solid #1f3a63;
 }
 
 th {
-    background-color: #1f3a63;
-    color: white;
+	background-color: #1f3a63;
+	color: white;
 }
 
 td {
-    background-color: #2c3e50;
+	background-color: #2c3e50;
 }
 
 /* Estilo para las filas de la tabla al pasar el ratón */
 tr:hover {
-    background-color: #34495e;
+	background-color: #34495e;
 }
 
 /* Enlaces dentro de la tabla */
-table a, .botoia {
-    display: inline-block;
-    margin-top: 20px;
-    text-align: center;
-    padding: 10px 20px;
-    color: #fff;
-    background-color: #f39c12;
-    text-decoration: none;
-    border-radius: 5px;
+table a,
+.botoia {
+	display: inline-block;
+	margin-top: 20px;
+	text-align: center;
+	padding: 10px 20px;
+	color: #fff;
+	background-color: #f39c12;
+	text-decoration: none;
+	border-radius: 5px;
 }
 
-table a:hover, .botoia:hover {
-    background-color: #e67e22;
+table a:hover,
+.botoia:hover {
+	background-color: #e67e22;
 }
 
 /* Imagenes dentro de la tabla */
 table img {
-    max-width: 100px;
-    border-radius: 5px;
+	max-width: 100px;
+	border-radius: 5px;
 }
 
-.saskia-text{
+.saskia-text {
 	color: #e67e22;
 	text-align: center;
 	font-size: 30px;
 	margin-top: 130px;
+}
+
+select {
+	background-color: #f0f0f0;
+	color: #333;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 14px;
+	width: 100%;
 }

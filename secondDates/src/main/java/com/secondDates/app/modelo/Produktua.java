@@ -1,7 +1,7 @@
-package com.secondDates.app.modelo;
+	package com.secondDates.app.modelo;
 
 import java.math.BigDecimal;
-
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +31,7 @@ public class Produktua {
     private Taldea taldea;
 
     private String tamaina;  
-    
+    private List<String> tamainaList;
     private String irudiaUrl;
 
 }

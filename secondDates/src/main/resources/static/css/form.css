@@ -119,3 +119,7 @@ br {
 	/* Sombra más oscura al pasar el ratón */
 }
 
+.text-error {
+	color: red;
+}
+
