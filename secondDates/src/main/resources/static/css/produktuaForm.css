@@ -94,8 +94,9 @@ br {
 	width: 100%;
 	font-size: 16px;
 	margin-bottom: 20px;
-
+	display: inline-block;
 }
+
 
 .form-container .btn {
 	background-color: #f39c12;
@@ -117,3 +118,4 @@ br {
 	background-color: #e67e22;
 	/* Sombra más oscura al pasar el ratón */
 }
+

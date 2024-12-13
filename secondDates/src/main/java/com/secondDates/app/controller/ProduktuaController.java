@@ -61,7 +61,12 @@ public class ProduktuaController {
 		String rol = auth.getAuthorities().stream().map(authority -> authority.getAuthority()).findFirst().orElse(null);
 		model.addAttribute("rola", rol);
 		Iterable<Produktua> prod = prodRepo.findAll();
-		model.addAttribute("produktuak", prod);
+		if (prodRepo.findAll().isEmpty()) {
+			model.addAttribute("produktuak", null);
+		} else {
+			model.addAttribute("produktuak", prod);
+		}
+
 		return "taulak/produktuaTaula";
 	}
 
@@ -100,12 +105,32 @@ public class ProduktuaController {
 		}
 	}
 
-	@PostMapping("/admin/taldea/gehitu")
-	public String taldeaGehitu(@ModelAttribute("taldea") Taldea taldea) {
+	
 
-		taldeaRepo.save(taldea);
+	@GetMapping("/admin/ezabatu/{id}")
+	public String eliminarProducto(@PathVariable Long id) {
+		Optional<Produktua> produktoa = prodRepo.findById(id);
 
-		return "redirect:/produktua/admin/gehitu";
+		if (produktoa.isPresent()) {
+			Produktua produktua = produktoa.get();
+
+			List<Cesta> cestas = cestaRepository.findByProduktuak(produktua);
+			for (Cesta cesta : cestas) {
+				cesta.getProduktuak().remove(produktua);
+
+				cestaRepository.save(cesta);
+			}
+			List<Erabiltzailea> erab = erabRepository.findByProduktuak(produktua);
+			for (Erabiltzailea erabiltzailea : erab) {
+				erabiltzailea.getProduktuak().remove(produktua);
+				erabRepository.save(erabiltzailea);
+			}
+			prodRepo.delete(produktua);
+		} else {
+			System.out.println("Producto no encontrado con id: " + id);
+		}
+
+		return "redirect:/produktua/admin/produktuak";
 	}
 
 	@GetMapping("/admin/editatu/{id}")
@@ -119,18 +144,6 @@ public class ProduktuaController {
 			return "error/notFound";
 		}
 		return "formularioa/aldatuProd";
-	}
-
-	@GetMapping("/admin/ezabatu/{id}")
-	public String eliminarProducto(@PathVariable Long id) {
-		if (prodRepo.existsById(id)) {
-			prodRepo.deleteById(id);
-		} else {
-
-			System.out.println("Producto no encontrado con id: " + id);
-		}
-
-		return "redirect:/produktua/admin/produktuak";
 	}
 
 	@PostMapping("/admin/editatu/{id}")
@@ -169,7 +182,11 @@ public class ProduktuaController {
 		String rol = auth.getAuthorities().stream().map(authority -> authority.getAuthority()).findFirst().orElse(null);
 		model.addAttribute("rola", rol);
 		Iterable<Produktua> prod = prodRepo.findAll();
-		model.addAttribute("produktuak", prod);
+		if (prodRepo.findAll().isEmpty()) {
+			model.addAttribute("produktuak", null);
+		} else {
+			model.addAttribute("produktuak", prod);
+		}
 		return "taulak/produktuaTaula";
 	}
 
@@ -194,7 +211,14 @@ public class ProduktuaController {
 
 		cesta.getProduktuak().add(producto.get());
 		cestaRepository.save(cesta);
-
+		erabiltzailea.getProduktuak().add(producto.get());
+		erabRepository.save(erabiltzailea);
 		return "redirect:/produktua/produktuak";
+	}
+	
+	@GetMapping("/admin/taldea/gehitu")
+	public String taldeaGehitu(Model model){
+		model.addAttribute("taldea", new Taldea());
+		return "formularioa/taldeaGehitu.html";
 	}
 }

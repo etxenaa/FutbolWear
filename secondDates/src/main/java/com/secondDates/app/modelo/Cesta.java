@@ -30,10 +30,8 @@ public class Cesta {
 
 	private String helbidea;
 
-	// N:M erlazioa Producto-rekin (taula intermedia produktuak gordeko ditu cestas)
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "cesta_producto", joinColumns = @JoinColumn(name = "cesta_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
 	private Set<Produktua> produktuak = new HashSet<>();
 
-	
 }

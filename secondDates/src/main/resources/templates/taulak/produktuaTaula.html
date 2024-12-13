@@ -18,7 +18,7 @@
 
 	<table>
 		<thead>
-			<tr>
+			<tr th:if="${produktuak != null}">
 				<th>Produktua</th>
 				<th>Deskripzioa</th>
 				<th>Prezioa</th>
@@ -29,7 +29,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="produktua : ${produktuak}">
+			<tr th:each="produktua : ${produktuak}" th:if="${produktuak != null}">
 				<td th:text="${produktua.izena}"></td>
 				<td th:text="${produktua.deskribapena}"></td>
 				<td th:text="${produktua.prezioa}"></td>
@@ -47,6 +47,9 @@
 						th:if="${rola == 'ROLE_USER'}">Saskira sartu</a></td>
 			</tr>
 		</tbody>
+		<div th:if="${produktuak == null}">
+			<p class="saskia-text">Ez dago produkturik</p>
+		</div>
 		<a class="botoia" th:href="@{/produktua/admin/gehitu}" th:if="${rola == 'ROLE_ADMIN'}">Produktua gehitu</a>
 	</table>
 </body>

@@ -24,7 +24,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Busca al usuario por su email
+        
+    
         Optional<Erabiltzailea> userOpt = erabRepo.findByEmail(username);
         
         if (userOpt.isEmpty()) {
@@ -37,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + erabiltzailea.getRola().toUpperCase());
 
         System.out.println(authority);
-        // Crear el objeto UserDetails con la contraseña y los roles de la base de datos
+        
         return new User(
                 erabiltzailea.getEmail(),   // Email como nombre de usuario
                 erabiltzailea.getPasahitza(),  // Contraseña encriptada

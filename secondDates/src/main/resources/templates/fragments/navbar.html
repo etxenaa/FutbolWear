@@ -13,6 +13,7 @@
                 <li><a href="/perfil/ver">Perfila</a></li>
                 <li><a href="/produktua/admin/produktuak" th:if="${rola == 'ROLE_ADMIN'}">Produktuak ikusi</a></li>
                 <li><a href="/erabiltzaileak/ikusi" th:if="${rola == 'ROLE_ADMIN'}">Erabiltzaileak ikusi</a></li>
+				<li><a href="/produktua/admin/taldea/gehitu" th:if="${rola == 'ROLE_ADMIN'}">Taldea gehitu</a></li>
                 <li><a href="/produktua/produktuak" th:if="${rola == 'ROLE_USER'}">Produktuak</a></li>
                 <li><a href="/saskia/ikusi" th:if="${rola == 'ROLE_USER'}">Nire saskia</a></li>
 				<li>

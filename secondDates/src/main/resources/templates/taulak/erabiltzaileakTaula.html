@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Lista de Usuarios</title>
+	<title>Erabiltzaile lista</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/taulak.css}">
 </head>
@@ -12,17 +12,16 @@
 <body>
 
 	<div th:replace="~{/fragments/navbar.html :: navbar}"></div>
-	<h1>Lista de Usuarios</h1>
+	<h1>Erabiltzaile lista</h1>
 
 	<table border="1">
 		<thead>
 			<tr>
-				<th>Nombre</th>
-				<th>Email</th>
-				<th>Teléfono</th>
-				<th>Rol</th>
-				<th>Dirección</th>
-				<th>Productos Asociados</th>
+				<th>Izena</th>
+				<th>Email-a</th>
+				<th>Telefonoa</th>
+				<th>Rola</th>
+				<th>Helbidea</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,15 +34,7 @@
 				<td
 					th:text="|${usuario.helbidea.kalea}, ${usuario.helbidea.hiria}, ${usuario.helbidea.postaKodea}, ${usuario.helbidea.herrialdea}|">
 				</td>
-				<td>
-					<ul>
-						<li th:each="produktua : ${usuario.produktuak}"
-							th:text="${produktua.izena} + ', ' + ${produktua.prezioa}">
-						</li>
-
-					</ul>
-
-				</td>
+				
 				<td><a th:href="@{/saskia/admin/ikusi/{email}(email=${usuario.email})}">Ikusi cesta</a></td>
 			</tr>
 		</tbody>

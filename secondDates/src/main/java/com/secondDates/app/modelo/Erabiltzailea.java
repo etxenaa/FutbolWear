@@ -12,7 +12,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.JoinColumn;
 
@@ -25,20 +24,18 @@ public class Erabiltzailea {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String izena;  // Nombre
+	private String izena;
 	private String email;
-	private String pasahitza;  // Contraseña
-	private String telefonoa;  // Teléfono
-	private String rola;  // Rol
+	private String pasahitza;
+	private String telefonoa;
+	private String rola; 
 
 	@Embedded
-	private Helbidea helbidea;  // Dirección
+	private Helbidea helbidea; 
 
-	// Relazio 1:1 Cesta-rekin
 	@OneToOne(mappedBy = "erabiltzailea", cascade = CascadeType.ALL)
 	private Cesta cesta;
 
-	// Relazio N:M Producto-rekin (Cesta bidez)
 	@ManyToMany
 	@JoinTable(name = "usuario_producto", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
 	private Set<Produktua> produktuak;

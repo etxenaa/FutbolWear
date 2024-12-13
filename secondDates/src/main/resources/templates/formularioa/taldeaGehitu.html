@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/produktuaForm.css}">
+	<title>Agregar Producto</title>
+</head>
+
+<body>
+	<h1>Agregar Producto</h1>
+
+	<div class="form-container">
+		<form th:action="@{/produktua/produktuak/admin/taldea/gehitu}" th:object="${taldea}" method="post"
+			enctype="multipart/form-data">
+			<label for="izena">Taldearen izena:</label>
+			<input type="text" id="izena" th:field="*{izena}" required="required" />
+			<br><br>
+			<label for="herrialdea">Herrialdea:</label>
+			<input type="text" id="herrialdea" th:field="*{herrialdea}" required="required" />
+			<br><br>
+			<button class="btn-gehitu" type="submit">Gehitu taldea</button>
+		</form>
+	</div>
+
+</body>
+
+</html>
