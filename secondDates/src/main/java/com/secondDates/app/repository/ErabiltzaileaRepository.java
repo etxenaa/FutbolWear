@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Set;
 import com.secondDates.app.modelo.Produktua;
 
-
 public interface ErabiltzaileaRepository extends JpaRepository<Erabiltzailea, Long> {
 	Optional<Erabiltzailea> findByEmail(String email);
+
 	List<Erabiltzailea> findByProduktuak(Produktua produktuak);
-}	
+}

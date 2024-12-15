@@ -26,13 +26,14 @@
 				<input type="email" id="email" name="email" th:value="${erabiltzailea.email}" required />
 			</div>
 			<div>
-			    <label for="telefonoa">Teléfono</label>
-			    <input type="tel" id="telefonoa" name="telefonoa" th:value="${erabiltzailea.telefonoa}" required />
+			    <label for="telefonoa">Telefonoa (Beste bat jartzen bada, gehitu egingo da)</label>
+			    <input type="tel" id="telefonoa" name="telefonoa" th:value="${erabiltzailea.telefono_zbk[0]}" required />
 			</div>
+			
 			<div>
 				<label for="kalea">Kalea</label>
 				<input type="text" id="kalea" name="helbidea.kalea" th:value="${erabiltzailea.helbidea.kalea}"
-					required />
+					 />
 			</div>
 			<div>
 				<label for="postaKodea">Posta kodea</label>

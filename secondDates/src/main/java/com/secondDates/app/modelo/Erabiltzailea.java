@@ -1,8 +1,10 @@
-	package com.secondDates.app.modelo;
+package com.secondDates.app.modelo;
 
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,11 +29,13 @@ public class Erabiltzailea {
 	private String izena;
 	private String email;
 	private String pasahitza;
-	private String telefonoa;
-	private String rola; 
+	@ElementCollection
+	@CollectionTable(name = "Telefonoak", joinColumns = @JoinColumn(name = "erabiltzailea_id"))
+	private Set<String> telefono_zbk;
+	private String rola;
 
 	@Embedded
-	private Helbidea helbidea; 
+	private Helbidea helbidea;
 
 	@OneToOne(mappedBy = "erabiltzailea", cascade = CascadeType.ALL)
 	private Cesta cesta;
@@ -39,6 +43,5 @@ public class Erabiltzailea {
 	@ManyToMany
 	@JoinTable(name = "usuario_producto", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
 	private Set<Produktua> produktuak;
-	
-	
+
 }

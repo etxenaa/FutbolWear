@@ -31,7 +31,7 @@
                 <tr th:each="usuario : ${usuarios}" th:if="${usuario.rola == 'User'}">
                     <td th:text="${usuario.izena}"></td>
                     <td th:text="${usuario.email}"></td>
-                    <td th:text="${usuario.telefonoa}"></td>
+                    <td th:text="${usuario.telefono_zbk}"></td>
                     <td th:text="${usuario.rola}"></td>
                     <td th:text="|${usuario.helbidea.kalea}, ${usuario.helbidea.hiria}, ${usuario.helbidea.postaKodea}, ${usuario.helbidea.herrialdea}|"></td>
                     <td>
