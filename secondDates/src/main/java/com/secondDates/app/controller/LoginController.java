@@ -1,6 +1,7 @@
 package com.secondDates.app.controller;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,7 +40,9 @@ public class LoginController {
 	public String index(Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String rol = userDetails.getAuthorities().stream().findFirst().map(auth -> auth.getAuthority()).orElse(null);
-		model.addAttribute("rola", rol); // Pasar el rol al modelo
+		Optional<Erabiltzailea> erabiltzailea = erabRepo.findByEmail(userDetails.getUsername());
+		model.addAttribute("rola", rol); 
+		model.addAttribute("admin", erabiltzailea.get().getIzena());
 		return "home";
 	}
 

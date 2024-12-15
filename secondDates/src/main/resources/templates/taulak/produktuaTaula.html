@@ -45,12 +45,12 @@
 					<img th:src="@{'/uploads/' + ${produktua.irudiaUrl}}" alt="Imagen del producto" width="100">
 				</td>
 				<td th:text="${produktua.taldea.izena}"></td>
-				<td><a th:href="@{/produktua/admin/editatu/{id}(id=${produktua.id})}"
-						th:if="${rola == 'ROLE_ADMIN'}">Editatu</a></td>
-				<td><a th:href="@{/produktua/admin/ezabatu/{id}(id=${produktua.id})}"
-						th:if="${rola == 'ROLE_ADMIN'}">Ezabatu</a></td>
-				<td><a th:href="@{/produktua/produktuak/erosi/{id}(id=${produktua.id})}"
-						th:if="${rola == 'ROLE_USER'}">Saskira sartu</a></td>
+				<td th:if="${rola == 'ROLE_ADMIN'}"><a
+						th:href="@{/produktua/admin/editatu/{id}(id=${produktua.id})}">Editatu</a></td>
+				<td th:if="${rola == 'ROLE_ADMIN'}"><a
+						th:href="@{/produktua/admin/ezabatu/{id}(id=${produktua.id})}">Ezabatu</a></td>
+				<td th:if="${rola == 'ROLE_USER'}"><a
+						th:href="@{/produktua/produktuak/erosi/{id}(id=${produktua.id})}">Saskira sartu</a></td>
 			</tr>
 		</tbody>
 		<div th:if="${produktuak == null}">
