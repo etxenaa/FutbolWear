@@ -1,4 +1,4 @@
-	package com.secondDates.app.modelo;
+package com.secondDates.app.modelo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,22 +17,21 @@ import lombok.Setter;
 @Setter
 public class Produktua {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String izena; 
-    private String deskribapena;  
-    private BigDecimal prezioa;  
-    private Integer stock;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "taldea_id")
-    private Taldea taldea;
+	private String izena;
+	private String deskribapena;
+	private BigDecimal prezioa;
+	private Integer stock;
 
-    private String tamaina;  
-    private List<String> tamainaList;
-    private String irudiaUrl;
+	@ManyToOne
+	@JoinColumn(name = "taldea_id")
+	private Taldea taldea;
+
+	private String tamaina;
+	private List<String> tamainaList;
+	private String irudiaUrl;
 
 }
-

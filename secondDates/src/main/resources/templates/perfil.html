@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/perfil.css}">
-	<title>Perfil del Usuario</title>
+	<title>Erabiltzailearen perfila</title>
 </head>
 
 <body class="perfil-body">
@@ -45,7 +45,8 @@
 
 						<div class="text-center mt-4">
 							<a href="/perfil/editar" class="btn btn-warning">Editar Perfil</a>
-							<a th:if="${erabiltzailea.rola == 'User'}" href="/perfil/ezabatu" class="btn btn-warning" onclick="return confirm('Zure kontua eta datuak ezabatu nahi dituzu? Saskia ere galduko da.');">Kontua
+							<a th:if="${erabiltzailea.rola == 'User'}" href="/perfil/ezabatu" class="btn btn-warning"
+								onclick="return confirm('Zure kontua eta datuak ezabatu nahi dituzu? Saskia ere galduko da.');">Kontua
 								ezabatu</a>
 						</div>
 					</div>

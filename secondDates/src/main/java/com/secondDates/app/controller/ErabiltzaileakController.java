@@ -22,7 +22,7 @@ public class ErabiltzaileakController {
 	@GetMapping("/ikusi")
 	public String ikusiErabiltzaileak(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName(); // Obtener el email del usuario autenticado
+		String email = auth.getName();
 
 		Erabiltzailea erabiltzailea = erabiltzaileaRepository.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
@@ -34,6 +34,6 @@ public class ErabiltzaileakController {
 
 		model.addAttribute("usuarios", erabiltzaileak);
 
-		return "taulak/erabiltzaileakTaula"; 
+		return "taulak/erabiltzaileakTaula";
 	}
 }

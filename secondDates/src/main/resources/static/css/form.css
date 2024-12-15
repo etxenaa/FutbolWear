@@ -2,41 +2,32 @@
 body {
 	font-family: Arial, sans-serif;
 	background-color: #34495e;
-	/* Fondo claro */
 	color: #333;
-	/* Texto oscuro para contraste */
 	margin: 0;
 	padding: 0;
 }
 
-/* Encabezados */
 h2 {
 	text-align: center;
 	color: #1f3a63;
-	/* Azul marino */
 	margin-top: 30px;
 }
 
-/* Estilos solo para el formulario */
 .form-container form {
 	background-color: #fff;
-	/* Fondo blanco para el formulario */
 	border-radius: 8px;
 	padding: 20px;
 	width: 80%;
 	max-width: 600px;
 	margin: 20px auto;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	/* Sombra suave */
 }
 
-/* Labels y campos de entrada dentro del formulario */
 .form-container label {
 	display: block;
 	margin: 10px 0 5px;
 	font-weight: bold;
 	color: #34495e;
-	/* Gris oscuro */
 }
 
 
@@ -45,17 +36,13 @@ h2 {
 	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
-	/* Borde suave */
 	border-radius: 4px;
 	box-sizing: border-box;
 	margin-bottom: 15px;
-	/* Espaciado entre campos */
 }
 
-/* Botón dentro del formulario */
 .form-container button[type="submit"] {
 	background-color: #f39c12;
-	/* Naranja */
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -67,7 +54,6 @@ h2 {
 
 .form-container button[type="submit"]:hover {
 	background-color: #e67e22;
-	/* Sombra más oscura al pasar el ratón */
 }
 
 /* Estilo para select dentro del formulario (categorías) */
@@ -78,14 +64,12 @@ h2 {
 	border-radius: 4px;
 }
 
-/* Espaciado y márgenes generales */
 br {
 	line-height: 2;
 }
 
 .form-container button[type="submit"] {
 	background-color: #f39c12;
-	/* Naranja */
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -116,10 +100,8 @@ br {
 .form-container button[type="submit"]:hover,
 .form-container a:hover {
 	background-color: #e67e22;
-	/* Sombra más oscura al pasar el ratón */
 }
 
 .text-error {
 	color: red;
 }
-

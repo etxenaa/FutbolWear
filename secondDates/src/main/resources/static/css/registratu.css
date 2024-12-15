@@ -13,65 +13,51 @@ body {
 
 .login-form {
 	background-color: #2c3e50;
-	/* Fondo gris oscuro */
 	border-radius: 10px;
 	padding: 20px;
 	max-width: 430px;
 	margin: 0 auto;
-	/* Centrar en la página */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
 }
 
-/* Estilo para los encabezados del formulario */
 .login-form h2 {
 	color: #f39c12;
-	/* Naranja */
 	text-align: center;
 	margin-bottom: 20px;
 	font-size: 24px;
 }
 
-/* Estilo para las etiquetas */
 .login-form label {
 	display: block;
 	margin-bottom: 5px;
 	font-weight: bold;
 	color: #ecf0f1;
-	/* Blanco grisáceo */
 }
 
-/* Estilo para los campos de entrada */
 .login-form input {
 	width: 95%;
 	padding: 10px;
 	margin-bottom: 15px;
 	border: 1px solid #1f3a63;
-	/* Azul marino */
 	border-radius: 5px;
 	background-color: #34495e;
-	/* Gris oscuro */
 	color: white;
 	font-size: 14px;
 }
 
-/* Cambiar el estilo al hacer focus en los campos */
 .login-form input:focus {
 	outline: none;
 	border-color: #f39c12;
-	/* Naranja */
 	background-color: #3d566e;
-	/* Gris más claro */
 }
 
-/* Estilo para el botón */
 .login-form button {
 	width: 100%;
 	padding: 10px;
 	border: none;
 	border-radius: 5px;
 	background-color: #f39c12;
-	/* Naranja */
 	color: white;
 	font-size: 16px;
 	font-weight: bold;
@@ -80,11 +66,9 @@ body {
 	margin-bottom: 10px;
 }
 
-/* Cambiar el color al pasar el ratón por el botón */
 .login-form button:hover,
 a:hover {
 	background-color: #e67e22;
-	/* Naranja más oscuro */
 }
 
 a {

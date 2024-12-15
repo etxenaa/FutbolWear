@@ -1,36 +1,26 @@
-/* General del perfil */
 .perfil-body {
-	/* Clase específica para el cuerpo del perfil */
 	font-family: Arial, sans-serif;
 	background-color: #34495e;
-	/* Fondo claro */
 	color: #333;
-	/* Texto oscuro para contraste */
 	margin: 0;
 	padding: 0;
 }
 
-/* Contenedor del perfil */
 .container {
 	max-width: 800px;
 	margin: 50px auto;
 	padding: 20px;
 }
 
-/* Card */
 .card {
 	background-color: #fff;
-	/* Fondo blanco para la tarjeta */
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	/* Sombra suave */
 	padding: 20px;
 }
 
-/* Card header */
 .card-header {
 	background-color: #1f3a63;
-	/* Azul marino */
 	color: white;
 	text-align: center;
 	padding: 15px;
@@ -39,7 +29,6 @@
 
 .btn {
 	background-color: #f39c12;
-	/* Naranja */
 	color: white;
 	padding: 10px 20px;
 	border-radius: 4px;
@@ -51,7 +40,7 @@
 	display: inline-block;
 }
 
-.btn:nth-child(2){
+.btn:nth-child(2) {
 	background-color: #D9534F;
 	color: white;
 	padding: 10px 20px;
@@ -68,14 +57,14 @@
 	background-color: #e67e22;
 }
 
-.btn:nth-child(2):hover{
+.btn:nth-child(2):hover {
 	background-color: #C43E3A;
 }
 
 .mb-3 {
 	display: flex;
 	margin-bottom: 20px;
-	
+
 }
 
 label {
@@ -85,13 +74,11 @@ label {
 	width: 20%;
 }
 
-/* Separador de cada sección de datos (Nombre, Email, Teléfono, etc.) */
 p span {
 	display: inline-block;
 	margin-bottom: 5px;
 }
 
-/* Diferenciar etiquetas de los datos */
 .data-label {
 	font-weight: bold;
 	color: #34495e;

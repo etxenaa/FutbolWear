@@ -20,12 +20,10 @@ public class Taldea {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String izena;  // Nombre
-	private String herrialdea;  // País
+	private String izena;
+	private String herrialdea;
 
-	// Relazio 1:N Producto-rekin (talde batek hainbat produktuak izan ditzake)
 	@OneToMany(mappedBy = "taldea", cascade = CascadeType.ALL)
 	private Set<Produktua> produktuak;
-
 
 }

@@ -1,37 +1,36 @@
 /* Navbar */
 nav {
-    background-color: #1f3a63;
-    padding: 14px;
+	background-color: #1f3a63;
+	padding: 14px;
 }
 
 nav ul {
-    list-style-type: none;
-    display: flex; /* Utilizamos flexbox para distribuir los elementos */
-    justify-content: center; /* Centra los elementos horizontalmente */
-    margin: 0;
-    padding: 0;
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
 }
 
 nav ul li {
-    display: inline-block; /* Asegura que los elementos sean tratados como elementos de bloque */
-    margin-right: 20px; /* Espacio entre los elementos */
+	display: inline-block;
+	margin-right: 20px;
 }
 
 nav ul li a {
-    color: white;
-    padding: 14px;
-    text-decoration: none;
-    font-size: 16px;
-    display: block; /* Hace que los enlaces ocupen todo el área del li */
-    text-align: center; /* Centra el texto dentro del enlace */
+	color: white;
+	padding: 14px;
+	text-decoration: none;
+	font-size: 16px;
+	display: block;
+	text-align: center;
 }
 
 nav ul li a:hover {
-    background-color: #575757;
-    border-radius: 5px;
+	background-color: #575757;
+	border-radius: 5px;
 }
 
-/* Evita el último espacio después del último <li> */
 nav ul li:last-child {
-    margin-right: 0;
+	margin-right: 0;
 }

@@ -9,10 +9,9 @@ import lombok.Setter;
 @Setter
 public class Helbidea {
 
-	private String kalea;  // Calle
-	private String postaKodea;  // Código postal
-	private String hiria;  // Ciudad
-	private String herrialdea;  // País
+	private String kalea;
+	private String postaKodea;
+	private String hiria;
+	private String herrialdea;
 
-	
 }

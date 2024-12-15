@@ -29,12 +29,10 @@ public class ProfileController {
 	@Autowired
 	private CestaRepository cestaRepo;
 
-	// Mostrar perfil
 	@GetMapping("/ver")
 	public String mostrarPerfil(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName(); // Obtener el email del usuario autenticado
-
+		String email = auth.getName();
 		Erabiltzailea erabiltzailea = erabRepo.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 		model.addAttribute("erabiltzailea", erabiltzailea);

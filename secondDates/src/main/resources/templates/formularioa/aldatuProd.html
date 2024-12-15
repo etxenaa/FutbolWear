@@ -11,7 +11,8 @@
 	<h2>Produktua Aldatu</h2>
 
 	<div class="form-container">
-		<form th:action="@{/produktua/admin/editatu/{id}(id=${produktua.id})}" th:object="${produktua}" method="post" enctype="multipart/form-data">
+		<form th:action="@{/produktua/admin/editatu/{id}(id=${produktua.id})}" th:object="${produktua}" method="post"
+			enctype="multipart/form-data">
 			<!-- Izena -->
 			<label for="izena">Izena:</label>
 			<input type="text" id="izena" th:field="*{izena}" required="required" />

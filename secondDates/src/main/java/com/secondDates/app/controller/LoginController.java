@@ -41,7 +41,7 @@ public class LoginController {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String rol = userDetails.getAuthorities().stream().findFirst().map(auth -> auth.getAuthority()).orElse(null);
 		Optional<Erabiltzailea> erabiltzailea = erabRepo.findByEmail(userDetails.getUsername());
-		model.addAttribute("rola", rol); 
+		model.addAttribute("rola", rol);
 		model.addAttribute("admin", erabiltzailea.get().getIzena());
 		return "home";
 	}
@@ -69,7 +69,7 @@ public class LoginController {
 		cesta.setHelbidea(erab.getHelbidea().getPostaKodea() + ", " + erab.getHelbidea().getKalea() + ", "
 				+ erab.getHelbidea().getHiria() + ", " + erab.getHelbidea().getHerrialdea());
 		cesta.setErabiltzailea(erab);
-		cesta.setProduktuak(new HashSet<>()); 
+		cesta.setProduktuak(new HashSet<>());
 		cestaRepo.save(cesta);
 
 		return "redirect:/home";

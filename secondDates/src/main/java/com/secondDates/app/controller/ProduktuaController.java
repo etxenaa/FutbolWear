@@ -174,14 +174,13 @@ public class ProduktuaController {
 				producto.setIrudiaUrl(irudia.getOriginalFilename());
 			}
 
-			// Usar save() de JpaRepository, que maneja la transacción
 			prodRepo.save(producto);
 
-			return "redirect:/produktua/admin/produktuak"; // Redirigir después de guardar
+			return "redirect:/produktua/admin/produktuak";
 		} catch (IOException e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", e.getMessage());
-			return "error"; // Página de error
+			return "error";
 		}
 	}
 
@@ -211,8 +210,7 @@ public class ProduktuaController {
 	}
 
 	@GetMapping("/produktuak/erosi/{id}")
-	public String produktuaErosiUser(@PathVariable Long id,
-			Model model) {
+	public String produktuaErosiUser(@PathVariable Long id, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 

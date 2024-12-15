@@ -33,7 +33,8 @@
 							th:text="${producto.izena} + ' - ' + ${producto.prezioa} + '€'"></li>
 					</ul>
 				</td>
-				<td><a class="botoia" th:href="@{/saskia/ezabatu/{id}(id=${cesta.id})}" th:if="${rola == 'ROLE_USER'}">Saskia ezabatu</a></td>
+				<td><a class="botoia" th:href="@{/saskia/ezabatu/{id}(id=${cesta.id})}"
+						th:if="${rola == 'ROLE_USER'}">Saskia ezabatu</a></td>
 			</tr>
 			<div th:if="${cesta.produktuak.size() == 0}">
 				<p class="saskia-text">Saskia hutsik dago</p>
