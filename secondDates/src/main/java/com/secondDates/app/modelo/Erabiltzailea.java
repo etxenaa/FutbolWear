@@ -2,6 +2,8 @@ package com.secondDates.app.modelo;
 
 import java.util.Set;
 
+import org.hibernate.annotations.Check;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
@@ -20,6 +22,7 @@ import jakarta.persistence.JoinColumn;
 @Entity
 @Getter
 @Setter
+@Check(constraints = "telefono_zbk.size() == 9")
 public class Erabiltzailea {
 
 	@Id
